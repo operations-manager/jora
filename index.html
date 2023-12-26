@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>პროცენტის გამომთვლელი</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      color: white;
+      font-size: large;
+    }
+  
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 50px;
+      background: linear-gradient(#031253,#080357,#060858);
+      border-radius: 20px;
+    }
+  
+    label {
+      display: block;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+  
+    input {
+      width: 50%;
+      padding: 5px;
+      font-size: 16px;
+      border-radius: 10px;
+      display: block;
+      margin: auto;
+    }
+  
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+  
+    #result {
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    .copy-button {
+      display: block;
+      margin-top: 25px;
+      margin-right: auto;
+      margin-left: auto;
+      width: 8rem;
+      height: 2rem;
+      border-radius: 10px;
+    }
+    .copy-button:active {
+        background: rgb(8, 148, 167);
+        color: white;
+    }
+    h1 {
+      color: #0003be;
+      text-align: center;
+      font-size: 20px;
+    }
+    .icon-secounder-pengueg {
+      max-width: 115px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+      margin-bottom: -10px;
+    }
+  </style>
+</head>
+<img class="icon-secounder-pengueg" src="https://clipart-library.com/images/rinGLpMrT.png"> <h1>ალბააათ</h1>
+<body>
+  <div class="container">
+    <label for="number-input">მიუთითე რაოდენობა</label>
+    <input type="number" id="number-input" min="0" step="0.01" />
+  
+    <div id="result"></div>
+  
+    <button class="copy-button" id="copy-button">კოპირება</button>
+  </div>
+  
+  <script>
+    const numberInput = document.getElementById('number-input');
+    const resultDiv = document.getElementById('result');
+    const copyButton = document.getElementById('copy-button');
+  
+    numberInput.addEventListener('input', () => {
+      const number = parseFloat(numberInput.value);
+      
+      if (isNaN(number) || number < 0) {
+        resultDiv.textContent = '';
+        return;
+      }
+      
+      const decreasedNumber = number - (number * 0.06);
+      const formattedNumber = decreasedNumber % 1 === 0 ? decreasedNumber.toFixed(0) : decreasedNumber.toFixed(2);
+      resultDiv.textContent = `ჩასარიცხი რაოდენობა: ${formattedNumber}`;
+    });
+  
+    copyButton.addEventListener('click', () => {
+      const textToCopy = resultDiv.textContent.split(': ')[1];
+  
+      navigator.clipboard.writeText(textToCopy)
+        .catch((error) => {
+          console.error('Error copying text: ', error);
+        });
+    });
+  </script>
+</body>
+</html>
